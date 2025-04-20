@@ -1,9 +1,15 @@
 import express from 'express';
+import {ApolloServer} from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import {authMiddleware} from './utils/auth.js';
+import { typeDefs, resolvers } from './schemas/index.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 import path from 'node:path';
 import db from './config/connection.js';
 import routes from './routes/index.js';
-import {ApolloServer} from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
+
 
 
 // add these lines to make __dirname work
