@@ -12,22 +12,24 @@ inport type {Context} from "./types/express.js";
 
    const server = new ApolloServer<Context>({
     typeDefs,
-    resolvers
+    resolvers,
+    introspection: true,
   });
 
+  const app = express();
 const startApolloServer = async () => {
   await server.start();
   await db();
 
-  const PORT = process.env.PORT || 3001;
-  const app = express();
-
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
-  app.use('/graphql', expressMiddleware(server as any,
+  app.use('/graphql', expressMiddleware(server,
     {
-      context: authenticateToken as any
+      context: async ({ req }) => {
+        const user = authenticateToken(req);
+        return { user };
+      }
     }
   ));
 
