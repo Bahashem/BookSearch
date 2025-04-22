@@ -6,3 +6,13 @@ declare namespace Express {
     };
   }
 }
+
+export typeUserPayload = {
+  _id: string;
+  username?: string;
+  email?: string;
+};
+
+export interface Context {
+  req: {user?: UserPayload;
+} 

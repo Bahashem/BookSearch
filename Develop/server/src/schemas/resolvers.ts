@@ -5,7 +5,7 @@ export const resolvers = {
             const userData = await context.models.User.findById(context.user._id).select('-__v -password');
             return userData;
         }
-        throw new AuthenticationError('Not logged in');
+        throw new Error('Not logged in');
         },
     },
     Mutation: {
@@ -17,11 +17,11 @@ export const resolvers = {
         login: async (_parent, { email, password }, context) => {
         const user = await context.models.User.findOne({ email });
         if (!user) {
-            throw new AuthenticationError('Incorrect credentials');
+            throw new Error('Incorrect credentials');
         }
         const correctPw = await user.isCorrectPassword(password);
         if (!correctPw) {
-            throw new AuthenticationError('Incorrect credentials');
+            throw new Error('Incorrect credentials');
         }
         const token = signToken(user);
         return { token, user };
@@ -32,10 +32,10 @@ export const resolvers = {
             context.user._id,
             { $addToSet: { savedBooks: input } },
             { new: true }
-            );
+            ).populate('savedBooks');   
             return updatedUser;
         }
-        throw new AuthenticationError('You need to be logged in!');
+        throw new Error('You need to be logged in!');
         },
         removeBook: async (_parent, { bookId }, context) => {
         if (context.user) {
