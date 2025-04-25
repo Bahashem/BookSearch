@@ -14,7 +14,7 @@ Usage Information
 Visit deployed site.
 
 Contribution
-Not at this time.
+Not at this time. THe following was used to help create this project: Bootcamp TAs, Bootcamp instructor, Chat GTP, CoPiolot and colaboration with classmates and Bootcamp tutors.
 
 License
 This project is licensed under the MIT License.
