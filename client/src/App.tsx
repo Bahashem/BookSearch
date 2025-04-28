@@ -1,3 +1,4 @@
+
 import "./App.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 // Removed unused import
@@ -8,7 +9,7 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <ApolloProvider client={new ApolloClient({
-        uri: "/graphql",
+        uri: process.env.REACT_APP_GRAPHQL_ENDPOINT || "/graphql",
         cache: new InMemoryCache(),
       })}
     >
