@@ -19,7 +19,7 @@ import type { Context } from "./types/express/index.d.js";
 const app = express();
 const startApolloServer = async () => {
   await server.start();
-  await db.open(); // Replace 'connect' with the correct method, e.g., 'open'
+  await db  
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
