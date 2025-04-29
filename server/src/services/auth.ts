@@ -9,16 +9,16 @@ dotenv.config();
 // Removed unused JwtPayload interface
 
 
-export const authenticateToken = (req: Request): UserPayload | undefined => {
+export const authenticateToken = ({req}: {req: Request}) => {
   try {
     const authHeader = req.headers.authorization || "";
     const token = authHeader.split(" ").pop()?.trim() || "";
     if (!token) {
-      return undefined;
+      return req;
     }
     const { data } = jwt.verify(token, process.env.JWT_SECRET_KEY || "") as { data: UserPayload };
     // If the token is valid, attach the user data to the request object
-    (req as any).user = data;
+    (req as any).user = data as UserPayload;
     return data;
   } catch (err) {
     console.log("Invalid token");

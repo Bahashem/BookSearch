@@ -13,12 +13,12 @@ export const resolvers = {
         }
     },
     Mutation: {
-        addUser: async (_parent: unknown, input: { username: string; email: string; password: string }, context: Context) => {
+        addUser: async (_parent: unknown, input: { username: string; email: string; password: string }, _context: Context) => {
         const user = await User.create(input);
         const token = signToken(user.username, user.email, user._id);
         return { token, user };
         },
-        login: async (_parent: unknown, { username, password }: { username: string; password: string }, context: Context) => {
+        login: async (_parent: unknown, { username, password }: { username: string; password: string }, _context: Context) => {
         const user = await User.findOne({ username });
         if (!user) {
             throw new Error('Incorrect credentials');
